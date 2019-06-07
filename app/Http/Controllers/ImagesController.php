@@ -20,32 +20,32 @@ class ImagesController extends Controller
     }
 
 // Save Image function
-        public function SaveImage(Request $request)
-        {
-            $this->validate($request, [
-                'image'=>'max:3000|mimes:jpeg,png,jpg',
-            ]);
-            $file = $request->file('image');
-            $fileExt = strtolower($file->getClientOriginalExtension());
-            $imgOriginalName = $file->getClientOriginalName();
-            $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
-            $location = public_path($this->uploadPath);
-            $file->move($location, $img_filename);
+    public function SaveImage(Request $request)
+    {
+        $this->validate($request, [
+            'image'=>'max:3000|mimes:jpeg,png,jpg',
+        ]);
+        $file = $request->file('image');
+        $fileExt = strtolower($file->getClientOriginalExtension());
+        $imgOriginalName = $file->getClientOriginalName();
+        $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
+        $location = public_path($this->uploadPath);
+        $file->move($location, $img_filename);
 
-            $save = new Images;
-            $save->image = $img_filename;
-            $save->save();
+        $save = new Images;
+        $save->image = $img_filename;
+        $save->save();
 
-            return redirect('/image')->with('success', 'Saved successfully!');
+        return redirect('/image')->with('success', 'Saved successfully!');
 
-        }
+    }
 
-        public function EditImage($id)
-        {
-          $imageEdit=Images::find($id);
-          return view('images.edit',compact('imageEdit'));
+    public function EditImage($id)
+    {
+      $imageEdit=Images::find($id);
+      return view('images.edit',compact('imageEdit'));
 
-        }   
+  }   
 
 
         /**
@@ -61,26 +61,44 @@ class ImagesController extends Controller
                 'image'=>'max:3000|mimes:jpeg,png,jpg',
             ]);
 
-            $update =Images::find($id);
-            $file = $request->file('image');
-            $fileExt = strtolower($file->getClientOriginalExtension());
-            $imgOriginalName = $file->getClientOriginalName();
-            $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
-            $location = public_path($this->uploadPath);
-            $file->move($location, $img_filename);
+             $update =Images::find($id);
+            // $file = $request->file('image');
+            // $fileExt = strtolower($file->getClientOriginalExtension());
+            // $imgOriginalName = $file->getClientOriginalName();
+            // $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
+            // $location = public_path($this->uploadPath);
+            // $file->move($location, $img_filename);
 
-            $update->image = $img_filename ?? $update->image;
-            $update->save();
+            // $update->image = $img_filename ?? $update->image;
+            // $update->save();
+            //   $data = $update;
+            //   $data->image = "{$this->uploadPath}{$data->image}";//set image with path
 
+
+            if(!isset($update))
+                return back();
+            if($file= $request->hasFile('image')){
+                $file = $request->file('image');
+                $path =public_path($this->uploadPath);
+                $getimageName = time().'.'.$file->getClientOriginalExtension();
+                try {
+                    unlink(public_path($this->uploadPath) . $update->image);
+
+                }catch (\Exception $e){            
+                }
+                $file->move($path, $getimageName);
+                $update->image=$getimageName;
+                $update->save();
+            }
             return redirect('/image')->with('success', 'Saved successfully!');
 
         }
         // Delete Image function
         public function DeleteImage($id)
         {
-           $delete = Images::find($id);
-             unlink(public_path($this->uploadPath) . $delete->image);
-             $delete->delete();
-             return back();
-             }
-}
+         $delete = Images::find($id);
+         unlink(public_path($this->uploadPath) . $delete->image);
+         $delete->delete();
+         return back();
+     }
+ }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Laravel</title>
+  <title>Edit Contact</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -70,7 +70,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Update Data Multitple Record</h1>
+    <h1>Update Data Multitple Record in Laravel</h1>
     <form class="needs-validation" action="{{route('contact.update', $contactEdit->id)}}" method="POST">
       <div class="form-group">
         <label for="sel1">Number Record</label>

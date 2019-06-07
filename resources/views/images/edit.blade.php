@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Laravel</title>
+  <title>Upload Image laravel</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -37,7 +37,7 @@ img{
 </head>
 <body>
   <div class="container">
-    <h1>Laravel Multitple Record</h1>
+    <h1>Laravel Edit upload Image</h1>
     <br>
     <!-- <input class="form-control" type="text" placeholder="Search" aria-label="Search"> -->
     <form class="needs-validation" action="{{route('image.update',$imageEdit->id)}}" method="POST" enctype="multipart/form-data">
@@ -47,7 +47,7 @@ img{
          <div class="col-md-12">
           <label for="validationTooltip04">Image</label>
           <div class="form-group">
-            <input type="file" class="form-control-file border" name="image" value="{{$imageEdit->image}}" required>
+            <input type="file" class="form-control-file border" name="image" value="{{$imageEdit->image}}">
           </div>
         </div>
          <br>

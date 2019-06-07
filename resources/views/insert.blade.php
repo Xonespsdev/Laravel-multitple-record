@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Create Contact</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="container">
-           <div class="title"> <h1>Add Data Multitple Record</h1></div>
+           <div class="title"> <h1>Add Data Multitple Record in Laravel</h1></div>
 {{--             @if(count($errors->all())>0)
             {{dd($errors->all())}}
             @endif
