@@ -3,7 +3,7 @@ laravel CRUD loop save
 Project with Laravel CRUD Multiple records and upload image
 
 
-#Develop
+# Develop
 1 Clone project
 2 Run command "composer install"
 3 Create Database and connect to .env file
