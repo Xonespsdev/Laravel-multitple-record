@@ -17,14 +17,20 @@ class ContactsController extends Controller
     public function index()
     {
         $contacts = Contacts::orderBy('id', 'desc')->paginate(10);
-        return view('index', compact("contacts"));
+        $total = Contacts::all()->count();
+        return view('index', compact('contacts', 'total'));  
     }
 
     public function add()
     {
         return view('insert');
     }
-
+    public function show(Request $request)
+    {
+        $contacts = Contacts::orderBy('id', 'desc')->limit($request->get('record'))->get();
+        $total = Contacts::all()->count();
+        return view('show', compact('contacts', 'total'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -33,8 +39,8 @@ class ContactsController extends Controller
      */
     public function create()
     {
-     return view('insert');
- }
+       return view('insert');
+   }
 
     /**
      * Store a newly created resource in storage.
@@ -53,17 +59,10 @@ class ContactsController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'gender' => 'required',
-            'image'=>'max:3000|mimes:jpeg,png,jpg',
             'record'=>'required'
         ]);
 
         $record=$request->record;
-        // $file = $request->file('image');
-        // $fileExt = strtolower($file->getClientOriginalExtension());
-        // $imgOriginalName = $file->getClientOriginalName();
-        // $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
-        // $location = public_path($this->uploadPath);
-        // $file->move($location, $img_filename);
 
         for ($i=0;$i<$record;$i++){
             $save = new Contacts;
@@ -76,7 +75,6 @@ class ContactsController extends Controller
             $save->age = $request->age;
             $save->phone = $request->phone;
             $save->address = $request->address;
-            $save->image = 'abcd';
             $save->save();
         }
 
@@ -103,19 +101,19 @@ class ContactsController extends Controller
         $record=$request->record;
         $all = Contacts::all();
         if($all->count() >= $record && $record > 0){
-           for ($i=0; $i < $record;$i++){
-                $update = $all[$i];
-                $update->name = $request->name;
-                $update->lastname = $request->lastname;
-                $update->gender = $request->gender;
-                $update->age = $request->age;
-                $update->phone = $request->phone;
-                $update->address = $request->address;
-                $update->save();
-            }
+         for ($i=0; $i < $record;$i++){
+            $update = $all[$i];
+            $update->name = $request->name;
+            $update->lastname = $request->lastname;
+            $update->gender = $request->gender;
+            $update->age = $request->age;
+            $update->phone = $request->phone;
+            $update->address = $request->address;
+            $update->save();
         }
-        return redirect('/')->with('success', 'Saved successfully!');
     }
+    return redirect('/')->with('success', 'Saved successfully!');
+}
 
     /**
      * Display the specified resource.

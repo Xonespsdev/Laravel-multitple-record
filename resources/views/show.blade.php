@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Contacts</title>
+    <title>All Contacts - Show: @if(app('request')->get('record') <= $total) {{  app('request')->get('record') }} @else {{ $total }} @endif  of Total: {{ $total }} Records - Laravel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Fonts -->
@@ -29,20 +29,17 @@
 <body>
 <div class="container mt-4">
     <div class="title">
-        <h1>All Data Multiple Record - {{ $total }} - Laravel</h1>
+        <h1>All Data - Show: @if(app('request')->get('record') <= $total) {{  app('request')->get('record') }} @else {{ $total }} @endif  of Total: {{ $total }} Records - Laravel.</h1>
     </div>
     <br>
-    <a type="submit" class="btn btn-primary btn-sm" href="{{route ('contact.add')}}">Add Contact</a>
-    <a type="submit" class="btn btn-primary btn-sm" href="{{route ('image.index')}}">Upload Image</a>
-    <a type="submit" class="btn btn-primary btn-sm" href="{{route ('file.index')}}">Upload File</a>
-
+    <a class="btn btn-primary btn-sm" href="{{ route('guest.home') }}">All Contacts</a>
     <div class="mt-4">
         <h4>Show data with specific record(s).</h4>
         <form class="needs-validation" action="{{ route('contact.show') }}" method="GET">
             <div class="form-group">
                 <label for="sel1">Number Record</label>
                 <input min="1" max="{{ $total }}" type="number" class="form-control" name="record"
-                       value="{{ $total }}"
+                       value="{{ app('request')->get('record') }}"
                        placeholder="Number Record"
                        required>
             </div>
@@ -94,11 +91,6 @@
         @endforeach
         </tbody>
     </table>
-    <section class="container-paginate">
-        <nav class="nav-lef-right wrap-paginate js-center" aria-label="Page navigation activity">
-            {{ $contacts->links() }}
-        </nav>
-    </section>
     <script>
         function confirmdelete() {
             return confirm('Are you sure you want to delete?');

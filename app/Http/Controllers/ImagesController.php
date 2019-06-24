@@ -23,7 +23,7 @@ class ImagesController extends Controller
     public function SaveImage(Request $request)
     {
         $this->validate($request, [
-            'image'=>'max:3000|mimes:jpeg,png,jpg',
+            'image'=>'max:3000|mimes:jpeg,png,jpg,docx,pdf',
         ]);
         $file = $request->file('image');
         $fileExt = strtolower($file->getClientOriginalExtension());
@@ -62,19 +62,6 @@ class ImagesController extends Controller
             ]);
 
              $update =Images::find($id);
-            // $file = $request->file('image');
-            // $fileExt = strtolower($file->getClientOriginalExtension());
-            // $imgOriginalName = $file->getClientOriginalName();
-            // $img_filename = md5($imgOriginalName) . microtime() . '_uploaded.' . $fileExt;
-            // $location = public_path($this->uploadPath);
-            // $file->move($location, $img_filename);
-
-            // $update->image = $img_filename ?? $update->image;
-            // $update->save();
-            //   $data = $update;
-            //   $data->image = "{$this->uploadPath}{$data->image}";//set image with path
-
-
             if(!isset($update))
                 return back();
             if($file= $request->hasFile('image')){
@@ -90,6 +77,7 @@ class ImagesController extends Controller
                 $update->image=$getimageName;
                 $update->save();
             }
+
             return redirect('/image')->with('success', 'Saved successfully!');
 
         }
